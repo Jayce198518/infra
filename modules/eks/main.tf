@@ -11,6 +11,7 @@ module "eks" {
   endpoint_private_access = true
   endpoint_public_access  = true
 
+
   enable_irsa                              = true
   enable_cluster_creator_admin_permissions = true
 
@@ -26,10 +27,11 @@ module "eks" {
 
   eks_managed_node_groups = {
     main = {
-      instance_types = var.instance_types
-      min_size       = var.min_size
-      max_size       = var.max_size
-      desired_size   = var.desired_size
+      instance_types     = var.instance_types
+      kubernetes_version = var.kubernetes_version
+      min_size           = var.min_size
+      max_size           = var.max_size
+      desired_size       = var.desired_size
     }
   }
 

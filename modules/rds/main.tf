@@ -11,12 +11,7 @@ resource "aws_security_group" "rds" {
     security_groups = [var.eks_node_security_group_id]
   }
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+  egress = []
 
   tags = {
     Name    = "${var.project}-${var.env}-rds-sg"

@@ -26,12 +26,12 @@ module "eks" {
   project            = local.project
   env                = local.env
   vpc_id             = module.vpc.vpc_id
-  subnet_ids         = module.vpc.private_subnets
+  subnet_ids         = module.vpc.public_subnets
   kubernetes_version = "1.33"
   instance_types     = ["t3.small"]
   min_size           = 1
-  max_size           = 5
-  desired_size       = 4
+  max_size           = 2
+  desired_size       = 1
 }
 
 module "rds" {

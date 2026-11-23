@@ -111,7 +111,7 @@ AWS_REGION          = prompt("AWS_REGION",          "AWS region where the cluste
                              "us-east-1", "us-east-1")
 ALB_CONTROLLER_ROLE = prompt("ALB_CONTROLLER_ROLE", "IAM role ARN for the AWS Load Balancer Controller",
                              "arn:aws:iam::<aws-account-id>:role/pharma-dev-alb-controller-role",
-                             "arn:aws:iam::873135413040:role/pharma-dev-alb-controller-role")
+                             "arn:aws:iam::596601390257:role/pharma-dev-alb-controller-role")
 
 default_gitops = os.path.join(DEFAULT_PROJECT_ROOT, "gitops")
 GITOPS_PATH         = prompt("GITOPS_PATH",         "Local path to your gitops repo",
@@ -193,6 +193,7 @@ ALB_VALUES_FILE = os.path.join(GITOPS_PATH, "k8s/ingress/alb-controller-values.y
 alb_cmd = [
     "helm", "upgrade", "--install", "aws-load-balancer-controller",
     "eks/aws-load-balancer-controller",
+        "--version", "3.6.3",
     "--namespace", "kube-system",
     "--set", f"clusterName={CLUSTER_NAME}",
     "--set", f"region={AWS_REGION}",
@@ -230,6 +231,7 @@ for wh_type in ["mutatingwebhookconfiguration", "validatingwebhookconfiguration"
 run_cmd([
     "helm", "upgrade", "aws-load-balancer-controller",
     "eks/aws-load-balancer-controller",
+        "--version", "3.6.3",
     "--namespace", "kube-system",
     "--set", f"clusterName={CLUSTER_NAME}",
     "--set", f"region={AWS_REGION}",
