@@ -27,3 +27,8 @@ variable "github_org" {
   description = "GitHub organization or username that owns frontend and backend"
   type        = string
 }
+
+variable "aws_region" {
+  description = "AWS region for IAM resource restrictions"
+  type        = string
+}

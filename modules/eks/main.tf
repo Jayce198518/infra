@@ -1,4 +1,5 @@
 module "eks" {
+  #checkov:skip=CKV_TF_1:Using the official Terraform Registry module with a version constraint; retaining the upstream module source.
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 21.0"
 
@@ -8,8 +9,9 @@ module "eks" {
   vpc_id     = var.vpc_id
   subnet_ids = var.subnet_ids
 
-  endpoint_private_access = true
-  endpoint_public_access  = true
+  endpoint_private_access      = true
+  endpoint_public_access       = true
+  endpoint_public_access_cidrs = ["129.205.124.21/32"]
 
 
   enable_irsa                              = true

@@ -1,4 +1,5 @@
 resource "aws_security_group" "rds" {
+  #checkov:skip=CKV2_AWS_5:Security group is attached to the RDS instance through the vpc_security_group_ids input of the RDS module.
   name        = "${var.project}-${var.env}-rds-sg"
   description = "Security group for RDS PostgreSQL instance"
   vpc_id      = var.vpc_id
@@ -21,8 +22,7 @@ resource "aws_security_group" "rds" {
 }
 
 module "rds" {
-  source  = "terraform-aws-modules/rds/aws"
-  version = "~> 7.0"
+  source = "git::https://github.com/terraform-aws-modules/terraform-aws-rds.git?ref=175da043429cbbe41c512f976105719f6d0e538c"
 
   identifier = "${var.project}-${var.env}-postgres"
 

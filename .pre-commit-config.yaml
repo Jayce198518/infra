@@ -22,3 +22,16 @@ repos:
         language: system
         pass_filenames: false
         files: \.tf$
+      - id: terraform-validate
+        name: Terraform validation
+        entry: terraform -chdir=envs/dev validate
+        language: system
+        pass_filenames: false
+        files: \.tf$
+
+      - id: checkov
+        name: Terraform security scan
+        entry: checkov -d . --framework terraform --compact
+        language: system
+        pass_filenames: false
+        files: \.tf$

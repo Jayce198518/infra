@@ -95,13 +95,25 @@ resource "aws_iam_policy" "github_actions_ci_policy" {
           "ecr:ListImages",
           "ecr:DescribeImages",
         ]
-        Resource = "arn:aws:ecr:*:${var.aws_account_id}:repository/*"
+        Resource = [
+          for repository in [
+            "api-gateway",
+            "auth-service",
+            "drug-catalog-service",
+            "inventory-service",
+            "manufacturing-service",
+            "notification-service",
+            "pharma-ui",
+            "supplier-service",
+            "qc-service",
+          ] : "arn:aws:ecr:${var.aws_region}:${var.aws_account_id}:repository/${repository}"
+        ]
       },
       {
         Sid      = "EKSDescribeCluster"
         Effect   = "Allow"
         Action   = ["eks:DescribeCluster"]
-        Resource = "arn:aws:eks:*:${var.aws_account_id}:cluster/${var.project}-${var.env}-cluster"
+        Resource = "arn:aws:eks:${var.aws_region}:${var.aws_account_id}:cluster/${var.project}-${var.env}-cluster"
       },
       {
         Sid      = "EKSListClusters"

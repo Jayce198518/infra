@@ -65,7 +65,8 @@ module "ecr" {
 }
 
 module "iam" {
-  source = "../../modules/iam"
+  source     = "../../modules/iam"
+  aws_region = local.region
 
   project           = local.project
   env               = local.env
